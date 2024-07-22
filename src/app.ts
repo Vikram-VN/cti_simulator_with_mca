@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import path from "path";
-import https from "https"
+import http from "http"
 import debug from "./config/debug";
 import { pageRouter } from './routes/pageRouter';
 import { apiRouter } from './routes/apiRouter';
@@ -18,7 +18,7 @@ const options = {
 };
 
 const PORT = port || 3000;
-const server: any = https.createServer(options, app).listen(PORT, () => {
+const server: any = http.createServer(app).listen(PORT, () => {
   console.log('Running at port', PORT);
 })
 const io = new Server(server);
