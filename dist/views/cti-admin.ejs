@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End User</title>
+    <script src="/assets/knockout.js"></script>
+    <script src="/js/ctiAdmin.js"></script>
+    <link rel='stylesheet' href='/assets/style.css'/>
+</head>
+<body>
+    <h2 class="title">UEF MCA CTI End User Simulator</h2>
+    <div style="padding: 5px;border-bottom: 1px solid #ccc;text-align: right;background-color: #F1EFED;">
+        <button data-bind="click:toggleLoggerVisibility" class="trans-button" style="cursor:pointer;">
+            <img src="/assets/icons/article_FILL0_wght400_GRAD0_opsz48.svg" class="icon-gray wi"/>
+        </button>
+    </div>
+    <div style="margin: 10px 30px;">
+        <div class="row">
+            <div class="column">
+                <div class="cl-all">
+                    <div class="cl cl-title">Select an agent (required)</div>
+                    <div class="cl">
+                        <select data-bind="options: agentStatus,
+                       optionsText: function(agentDetails) {
+                           return agentDetails.agentId
+                       },
+                       value: selectedAgent,
+                       optionsCaption: 'Select an Agent'" style="padding: 7px;">
+                        </select>
+                        <div data-bind="visible:selectedAgent" class="pt-1">
+                            <button class="ora-button"
+                                    data-bind="
+                        click: ringClick,
+                        attr: { id: 'ring_button' },
+                        visible: selectedAgent
+                    ">Ring
+                            </button>
+                            <button class="ora-button"
+                                    data-bind="
+                        click: hangupClick,
+                        attr: { id: 'hangup_button' },
+                        visible: selectedAgent
+                    ">Hangup
+                            </button>
+                        </div>
+                        <div style="padding: 15px 0 5px;">
+                            <input type="checkbox" data-bind="checked:shouldFail"/>
+                            <span>Fail the call. Flight Mode</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- data-bind="visible:showAcceptOrRejectDialog" -->
+                <div class="cl-all">
+                    <div class="cl cl-title">IVR Data</div>
+                    <div class="cl">
+                        <button data-bind="click: addEntryToIvrData" class="ora-button">Add Entry</button>
+                        <ul data-bind="foreach: ivrData" style="list-style-type: none;padding-left: 0;">
+                            <li style="margin-bottom: 6px;">
+                                <input data-bind="value: key" class="ora-input"/>
+                                <input data-bind="value: value" class="ora-input"/>
+                                <button class="ora-button">Delete</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="panel box" style="text-align: center;margin-bottom:10px;" data-bind="visible:showAcceptDeclineHangupWidget()">
+                    <div style="padding:  10px 0 15px;">
+                        <div style="margin:  0;">
+                            <span class="blink_me" data-bind="visible: !isOnCall()">Incoming Call...</span>
+                            <div data-bind="visible: isOnCall()" style=" margin:  0; ">Connected</div>
+                        </div>
+                        <div style=" font-size: x-large; padding:  25px 0 10px;" data-bind="text: callingAgent()"></div>
+                    </div>
+                    <button class="icon-button green-button"
+                            id="accept_button"
+                            data-bind="click: acceptClick,visible:!isOnCall()">
+                        <img src="/assets/icons/call_black_24dp.svg" class="icon-white wi"/>
+                    </button>
+
+                    <!-- data-bind="visible: !showEndButton"-->
+                    <button class="icon-button red-button"
+                            id="reject_button"
+                            data-bind="click: declineClick,visible:!isOnCall()">
+                        <img src="/assets/icons/phone_disabled_black_24dp.svg" class="icon-white wi"/>
+                    </button>
+
+                    <!-- data-bind="visible: showEndButton" -->
+                    <button class="icon-button red-button"
+                            id="end_button"
+                            data-bind="click: hangupOutgoingClick,visible:isOnCall()">
+                        <img src="/assets/icons/call_end_black_24dp.svg" class="icon-white wi"/>
+                    </button>
+                </div>
+                <div id="logs" class="logs cl-all" style="max-height:80vh;" data-bind="visible:loggerVisibility">
+                    <div class="cl cl-title">Logs</div>
+                    <div class="cl">
+                        <button data-bind="click:logger.messages([])" class="ora-button">Clear Logs</button>
+                        <div class="details-container" data-bind="foreach: logger.messages">
+                            <details class="details-entry">
+                                <summary data-bind="text: title" class="details-title"></summary>
+                                <div data-bind="text: content" class="details-content"></div>
+                            </details>
+                        </div>
+<!--                        <ul data-bind="foreach: logger.messages" class="comments" style="font-size:small">-->
+<!--                            <li class="comment">-->
+<!--                                <div data-bind="text: title" class="comment-title"></div>-->
+<!--                                <div data-bind="text: content" class="comment-content"></div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

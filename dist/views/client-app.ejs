@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTI Simulator</title>
+    <script src="/assets/knockout.js"></script>
+    <script src="/js/clientApp.js"></script>
+    <link rel='stylesheet' href='/assets/style.css' /><!-- <link rel='stylesheet' href='/assets/bulma.css' /> -->
+</head>
+
+<body>
+    <h3 class="title">UEF MCA CTI Agent Simulator</h3>
+    <div class="loginDetails">
+        <table align="right">
+            <tr>
+                <td>
+                    <!-- <button data-bind="click:toggleLoggerVisibility" class="trans-button" style="cursor:pointer;">
+                        <img src="/assets/icons/article_FILL0_wght400_GRAD0_opsz48.svg" class="icon-gray wi"/>
+                    </button> -->
+                </td>
+                <td>
+                    <a target="_blank" href="/cti-simulator/pages/cti-admin">
+                        <img src="/assets/icons/contact_phone_FILL0_wght400_GRAD0_opsz48.svg" class="icon-gray wi" />
+                    </a>
+                </td>
+                <td>
+                    <!-- <button data-bind="click:logout" class="trans-button" style="cursor:pointer;" id="logout_button">
+                        <img src="/assets/icons/logout_FILL0_wght400_GRAD0_opsz48.svg" class="icon-gray wi" />
+                    </button> -->
+                </td>
+                <td>
+                    <div style="padding-bottom:5px;">
+                        Agent:
+                        <span id="agentId"
+                            data-bind=" text: agentInfo().agentId, css: { blueFont: agentInfo().isAvailable, grayFont: !agentInfo().isAvailable }">
+                    </div>
+                    </span>
+                </td>
+                <td>
+                    <!-- <button data-bind="click: toggleAvailability.bind($data,null)" class="trans-button"
+                        style="cursor:pointer;">
+                        <img data-bind="visible:agentInfo().isAvailable"
+                            src="/assets/icons/support_agent_black_24dp.svg" class="icon-green wi" />
+                        <img data-bind="visible:!agentInfo().isAvailable"
+                            src="/assets/icons/support_agent_black_24dp.svg" class="icon-gray wi" />
+                    </button> -->
+                </td>
+            </tr>
+        </table>
+        <div style="clear: both;"></div>
+    </div>
+    <!-- data-bind="css: { 'box': !isOutgoingCall(), 'light-box': isOutgoingCall() }" -->
+    <div data-bind="visible: showAcceptOrRejectDialog" class="box" style="margin: 20px;">
+        <div style="text-align: center;">
+            <div style="padding:  10px 0 15px;">
+                <div data-bind="visible: !showEndButton()" style=" margin:  0;">
+                    <span class="blink_me" data-bind="visible: !isOutgoingCall()">Incoming Call...</span>
+                    <span class="blink_me" data-bind="visible: isOutgoingCall()">Outgoing Call...</span>
+                </div>
+                <div data-bind="visible: showEndButton()" style=" margin:  0; ">Connected</div>
+            </div>
+            <div style=" margin:3px; padding:3px;">
+                <div class="avatar"></div>
+                <div style=" padding-top: 15px;font-size: larger" data-bind="text: timerValue()"></div>
+                <div>
+                    <div style=" font-size: x-large; padding:  15px 0 10px;" data-bind="text: callerDetails().name">
+                    </div>
+                    <div style=" padding: 5px 0; " data-bind="text: callerDetails().number"></div>
+                    <div style=" padding-bottom: 10px;" data-bind="text: callerDetails().email"></div>
+                </div>
+            </div>
+            <div style=" padding:  10px 0;">
+                <!-- data-bind="visible: !showEndButton && !isOutgoingCall" -->
+                <button id="accept_button" class="icon-button green-button"
+                    data-bind="click: acceptRejectEnd.bind($data, 'accept'),visible: !showEndButton() && !isOutgoingCall()">
+                    <img src="/assets/icons/call_black_24dp.svg" class="icon-white wi" />
+                </button>
+
+                <!-- data-bind="visible: !showEndButton"-->
+                <button class="icon-button red-button" id="reject_button"
+                    data-bind="click: acceptRejectEnd.bind($data, 'reject'),visible: !showEndButton()">
+                    <img src="/assets/icons/phone_disabled_black_24dp.svg" class="icon-white wi" />
+                </button>
+
+                <!-- data-bind="visible: showEndButton" -->
+                <button class="icon-button red-button" id="end_button"
+                    data-bind="click: acceptRejectEnd.bind($data, 'end'),visible: showEndButton()">
+                    <img src="/assets/icons/call_end_black_24dp.svg" class="icon-white wi" />
+                </button>
+            </div>
+        </div>
+    </div> <!-- <button data-bind="click: fireGetConfiguration">fireGetConfiguration</button> -->
+    <div id="logs" class="logs stick-to-bottom" data-bind="visible:loggerVisibility">
+        <button data-bind="click:logger.messages([])" id="clear_button" class="ora-button">Clear Logs</button>
+        <div class="details-container" data-bind="foreach: logger.messages">
+            <details class="details-entry">
+                <summary data-bind="text: title" class="details-title"></summary>
+                <div data-bind="text: content" class="details-content"></div>
+            </details>
+        </div>
+        <!--        <ul data-bind="foreach: logger.messages" class="comments">-->
+        <!--            <li class="comment">-->
+        <!--                <div data-bind="text: title, attr: { id: 'comment_title_' + $index() }" class="comment-title"></div>-->
+        <!--                <div data-bind="text: content, attr: { id: 'comment_content_' + $index() }" class="comment-content"></div>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+    </div>
+</body>
+
+</html>
