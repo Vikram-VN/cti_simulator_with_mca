@@ -160,6 +160,19 @@
           "ORA_SVC_PHONE"
         );
       }
+
+      function onOutgoingEvent() {
+        svcMca.tlb.api.onOutgoingEvent(
+          "PHONE",
+          "ORA_SERVICE",
+          function (response) {
+            console.log("Calling: " + response.SVCMCA_ANI);
+            console.log("Contact name: " + response.SVCMCA_CUSTOMER_NAME);
+            alert("Initiating outgoing call, see information in the log.");
+          },
+          "ORA_SVC_PHONE"
+        );
+      }
     </script>
   </head>
   <body>
@@ -187,6 +200,12 @@
       type="button"
       value="Get customer data"
       onclick="getCustomerData()"
+    />
+
+    <input
+      type="button"
+      value="Register outcall listener"
+      onclick="onOutgoingEvent()"
     />
   </body>
 </html>
