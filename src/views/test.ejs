@@ -1,8 +1,12 @@
 <html>
   <head>
     <style>
-      button {
-        margin: 0 0.2rem;
+      input[type="button"] {
+        margin: 0.2rem;
+        background: rgb(29, 169, 224);
+        border: none;
+        color: #000;
+        padding: 0.2rem;
       }
     </style>
     <script
@@ -173,6 +177,18 @@
           "ORA_SVC_PHONE"
         );
       }
+
+      function agentStateEvent() {
+      svcMcaTlb.api.agentStateEvent("PHONE","1",true,true,"AVAILABLE","Available",null,null,{}, 
+         function(response){
+            if (response.result == 'success') {
+               alert("success response for agentStateEvent received");
+            } else {
+               alert("error response for agentStateEvent received: "+response.error);
+            }
+         }, 'ORA_SVC_PHONE');
+   }
+
     </script>
   </head>
   <body>
@@ -207,5 +223,7 @@
       value="Register outcall listener"
       onclick="onOutgoingEvent()"
     />
+
+    <input type="button" value="Fire agentStateEvent" onclick="agentStateEvent()"/>
   </body>
 </html>
