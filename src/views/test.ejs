@@ -179,7 +179,7 @@
       }
 
       function agentStateEvent() {
-      svcMcaTlb.api.agentStateEvent("PHONE","1",true,true,"AVAILABLE","Available",null,null,{}, 
+      svcMca.tlb.api.agentStateEvent("PHONE","1",true,true,"AVAILABLE","Available",null,null,{}, 
          function(response){
             if (response.result == 'success') {
                alert("success response for agentStateEvent received");
