@@ -28,8 +28,9 @@
 
       function inboundCallNotification() {
         var inData = {};
-        inData.SVCMCA_ANI = "5551234";
+        inData.SVCMCA_ANI = "+1-212-456-7890";
         inData.SVCMCA_CONTACT_ID = "1234567890";
+        inData.SVCMCA_COMMUNICATION_DIRECTION = 'ORA_SVC_OUTBOUND';
         svcMca.tlb.api.newCommEvent(
           "PHONE",
           "ORA_SERVICE",
@@ -132,9 +133,8 @@
 
       function getCustomerData() {
         var inData = {};
-        inData.SVCMCA_ANI = "+1-212-456-7890";
+        inData.SVCMCA_ANI = "5551234";
         inData.SVCMCA_CONTACT_ID = "1234567890";
-        inData.SVCMCA_COMMUNICATION_DIRECTION = 'ORA_SVC_OUTBOUND';
         svcMca.tlb.api.getCustomerData(
           "PHONE",
           "ORA_SERVICE",
