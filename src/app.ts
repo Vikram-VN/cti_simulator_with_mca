@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import path from "path";
-import http from "http"
+imimport http from "http"
 import debug from "./config/debug";
 import { pageRouter } from './routes/pageRouter';
 import { apiRouter } from './routes/apiRouter';
@@ -19,7 +19,7 @@ const options = {
 
 const PORT = port || 3000;
 const server: any = http.createServer(app).listen(PORT, () => {
-  console.log('Running at port', PORT);
+g at port', PORT);
 })
 const io = new Server(server);
 
@@ -64,6 +64,3 @@ app.use((req, res, next) => {
   }
   next();
 });
-// server.listen(port, () => {
-//   console.log(`SERVER RUNNING ON ${port}`);
-// });
