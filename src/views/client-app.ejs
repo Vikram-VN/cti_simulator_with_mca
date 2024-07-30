@@ -13,7 +13,6 @@
 
 <body>
     <h3 class="title">UEF MCA CTI Agent Simulator</h3>
-    <%- include('test'); -%>
     <div class="loginDetails">
         <table align="right">
             <tr>
@@ -53,6 +52,8 @@
         </table>
         <div style="clear: both;"></div>
     </div>
+    <br><br>
+    <%- include('test'); -%>
     <!-- data-bind="css: { 'box': !isOutgoingCall(), 'light-box': isOutgoingCall() }" -->
     <div data-bind="visible: showAcceptOrRejectDialog" class="box" style="margin: 20px;">
         <div style="text-align: center;">
