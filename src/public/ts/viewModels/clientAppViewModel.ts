@@ -68,7 +68,7 @@ export class ClientAppViewModel {
 
         /*
         * Subscribe to Service center events like Click on a Phone number
-        * or press Answer / Decline / EndCall button press or Wrapup Save
+        * or press Answer / Decline / EndCall button press or Wrap-up Save
         * button press.
         * */
         this.ctiCallBackHandler = new CtiActionsCallbackHandlerFactory(this.updateUserDetails, this.enableCallConnectedUI, this.disableCallConnectedUI);

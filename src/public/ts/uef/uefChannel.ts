@@ -11,30 +11,39 @@ class UefChannel {
     public async initialize(): Promise<any> {
         try {
             this._uefClient = await this.initUefClient();
+            Logger.log('Initialized UEF client');
         } catch (error) {
-            console.error(error);
+            console.error('Failed to initialize UEF client:', error);
+            return Promise.reject('Initialization of UEF client failed');
         }
+    
         try {
             this._frameworkProvider = await this._uefClient.uiEventsFramework.initialize('test');
-            Logger.log('initialized frameworkProvider');
+            Logger.log('Initialized frameworkProvider');
         } catch (error) {
-            console.error(error);
+            console.error('Failed to initialize frameworkProvider:', error);
+            return Promise.reject('Initialization of frameworkProvider failed');
         }
+    
         try {
             this._mcaContext = await this._frameworkProvider.getMultiChannelAdaptorContext();
-            Logger.log('got mcaContext');
+            Logger.log('Got mcaContext');
         } catch (error) {
-            console.error(error);
+            console.error('Failed to get mcaContext:', error);
+            return Promise.reject('Retrieval of mcaContext failed');
         }
+    
         try {
             this._phoneContext = await this._mcaContext.getCommunicationChannelContext('PHONE');
-            Logger.log('got phoneContext');
+            Logger.log('Got phoneContext');
         } catch (error) {
-            console.error(error);
+            console.error('Failed to get phoneContext:', error);
+            return Promise.reject('Retrieval of phoneContext failed');
         }
+    
         return Promise.resolve();
     }
-
+    
     public get phoneContext(): ICommunicationChannelContext {
         return this._phoneContext;
     }
