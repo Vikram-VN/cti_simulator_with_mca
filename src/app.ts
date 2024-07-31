@@ -5,15 +5,26 @@ import debug from "./config/debug";
 import { pageRouter } from './routes/pageRouter';
 import { apiRouter } from './routes/apiRouter';
 import { Server, Socket } from 'socket.io';
+import cors from 'cors';
 const app: Application = express();
 import { agentStatus } from './routes/globals'
 const port = debug.PORT;
+
+// Enable CORS for all routes
+app.use(cors());
 
 const PORT = port || 3000;
 const server: any = http.createServer(app).listen(PORT, () => {
   console.log('Running at port', PORT);
 })
-const io = new Server(server);
+
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Allow all origins for simplicity, you can restrict to specific origins
+    methods: ["GET", "POST"]
+  }
+});
+
 
 io.on('connection', (socket: Socket) => {
   console.log('endpoint connected');
