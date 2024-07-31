@@ -16,7 +16,7 @@ class UefChannel {
         }
         try {
             this._frameworkProvider = await this._uefClient.uiEventsFramework.initialize('test');
-            Logger.log('initialised frameworkProvider');
+            Logger.log('initialized frameworkProvider');
         } catch (error) {
             console.error(error);
         }

@@ -1,16 +1,12 @@
-// The base directory that we want to use
+const path = require('path');
 const baseDirectory = "src";
 
 module.exports = {
-  // The current mode, defaults to production
-  mode: "development",
-
-  // The entry points ("location to store": "location to find")
+  mode: "production",
   entry: {
     "public/js/clientApp": [`./${baseDirectory}/public/ts/clientApp`],
     "public/js/ctiAdmin": [`./${baseDirectory}/public/ts/ctiAdmin`],
   },
-  // Using the ts-loader module
   module: {
     rules: [
       {
@@ -23,11 +19,10 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  // Used for generating source maps (used for debugging)
-  devtool: "eval-source-map",
-
-  // The location where bundle are stored
+  devtool: "source-map", // Use source-map for better debugging experience
   output: {
+    path: path.resolve(__dirname, 'dist'),
     filename: "[name].js",
+    sourceMapFilename: "[file].map" // Ensure source maps are generated
   },
 };

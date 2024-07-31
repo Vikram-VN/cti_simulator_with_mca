@@ -115,7 +115,7 @@ export class CtiChannelClientApp {
         this.callAcceptReceived = callback;
     }
 
-    ctiCallAccceptDeclineCommands(data: any): void {
+    ctiCallAcceptDeclineCommands(data: any): void {
         let payload = {
             agentId: this.agentInfo().agentId,
             target: CtiTargets.ADMIN,

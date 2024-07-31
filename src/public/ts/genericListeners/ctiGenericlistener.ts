@@ -15,7 +15,7 @@ export class GenericListener {
     //     notificationContext.subscribe(requestObject, (res) => {
     //         const response: INotificationActionEventResponse = res as INotificationActionEventResponse;
     //         const action: string = response.getResponseData().getActionId();
-    //         clientAppCtiChannel.ctiCallAccceptDeclineCommands({ action });
+    //         clientAppCtiChannel.ctiCallAcceptDeclineCommands({ action });
     //     });
     // }
 
@@ -26,7 +26,7 @@ export class GenericListener {
             // action can be accept, reject, disconnect, setActive
             const action: string = eventResponseDetails.command;
             console.log('action:', action);
-            clientAppCtiChannel.ctiCallAccceptDeclineCommands({ action });
+            clientAppCtiChannel.ctiCallAcceptDeclineCommands({ action });
             eventResponseDetails.result = 'success';
             return new Promise((resolve, reject) => {
                 resolve(eventResponseDetails);
