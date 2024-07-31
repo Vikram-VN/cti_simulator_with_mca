@@ -18,7 +18,7 @@ const options = {
 };
 
 const PORT = port || 3000;
-const server: any = http.createServer(app).listen(PORT, () => {
+const server: any = http.createServer({}, app).listen(PORT, () => {
   console.log('Running at port', PORT);
 })
 const io = new Server(server);
