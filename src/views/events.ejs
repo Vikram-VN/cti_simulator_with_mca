@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Toolbar Client Application</title>
+    <script src="https://static.oracle.com/cdn/ui-events-framework/libs/ui-events-framework-client.js"></script>
+  </head>
+  <body>
+    <script>
+      /* Initialise UEF */
+      const frameworkProvider =
+        await CX_SVC_UI_EVENTS_FRAMEWORK.uiEventsFramework.initialize("test");
+      /* Obtain mcaContext & phoneContext. */
+      mcaContext = await frameworkProvider.getMultiChannelAdaptorContext();
+      phoneContext = await mcaContext.getCommunicationChannelContext("PHONE");
+
+      /* Call mandatory publish APIs. */
+      const requestObject =
+        frameworkProvider.requestHelper.createPublishRequest(
+          "getConfigurationOperation"
+        );
+      requestObject.setConfigType("TOOLBAR");
+      const operationResponse = await phoneContext.publish(requestObject);
+      console.log("getConfiguration > operationResponse", operationResponse);
+      const mcaGetConfigurationActionResponseData =
+        operationResponse.getResponseData();
+      const isSuccess = mcaGetConfigurationActionResponseData.isSuccess();
+      if (isSuccess) {
+        const mcaGetConfiguration =
+          mcaGetConfigurationActionResponseData.getConfiguration();
+        console.log("agentId: ", mcaGetConfiguration.getAgentId());
+      }
+
+      const requestObjectNew =
+        frameworkProvider.frameworkProvider.requestHelper.createPublishRequest(
+          "agentStateEventOperation"
+        );
+        requestObjectNew.setEventId("1");
+      requestObjectNew.setIsAvailable(true);
+      requestObjectNew.setIsLoggedIn(true);
+      requestObjectNew.setState("AVAILABLE");
+      requestObjectNew.setStateDisplayString("Idle");
+      requestObjectNew.setReason(null);
+      requestObjectNew.setReasonDisplayString("Idle");
+      requestObjectNew.setInData({ phoneLineId: "1" });
+      const operationResponseNew = await phoneContext.publish(requestObjectNew);
+      console.log(
+        "agentStateEventOperation > operationResponse",
+        operationResponseNew
+      );
+      const mcaAgentStateEventActionResponseData =
+      operationResponseNew.getResponseData();
+      const isSuccessNew = mcaAgentStateEventActionResponseData.isSuccess();
+      console.log("success-->", isSuccessNew);
+
+      /* Initialise mandatory subscriptions. */
+    </script>
+  </body>
+</html>
