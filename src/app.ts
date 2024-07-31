@@ -5,20 +5,12 @@ import debug from "./config/debug";
 import { pageRouter } from './routes/pageRouter';
 import { apiRouter } from './routes/apiRouter';
 import { Server, Socket } from 'socket.io';
-const fs = require('fs');
 const app: Application = express();
 import { agentStatus } from './routes/globals'
 const port = debug.PORT;
 
-const options = {
-  key: fs.readFileSync('security/domain.key'),
-  cert: fs.readFileSync('security/domain.crt'),
-  requestCert: false,
-  rejectUnauthorized: false
-};
-
 const PORT = port || 3000;
-const server: any = http.createServer({}, app).listen(PORT, () => {
+const server: any = http.createServer(app).listen(PORT, () => {
   console.log('Running at port', PORT);
 })
 const io = new Server(server);
