@@ -58,7 +58,6 @@ app.set('view engine', 'ejs');
 app.use('/cti-simulator/pages', pageRouter);
 app.use('/cti-simulator/apis', apiRouter);
 app.get('/', (req: Request, res: Response, next) => res.render('index'));
-app.get('/cti-simulator/test', (req: Request, res: Response, next) => res.render('events'));
 app.use((req, res, next) => {
   if (req.protocol === 'http') {
     return res.redirect(301, `https://${req.headers.host}${req.url}`);
