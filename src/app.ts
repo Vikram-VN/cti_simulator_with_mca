@@ -21,8 +21,10 @@ const server: any = http.createServer(app).listen(PORT, () => {
 const io = new Server(server, {
   cors: {
     origin: "*", // Allow all origins for simplicity, you can restrict to specific origins
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
+  pingInterval: 10000,
+  pingTimeout: 5000,
 });
 
 
