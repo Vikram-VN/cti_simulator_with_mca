@@ -190,7 +190,7 @@ export class ClientAppViewModel {
         });
         // this.showEndButton(false);
         // this.isOutgoingCall(false);
-        // this.showAcceptOrRejectDialog(true);
+         this.showAcceptOrRejectDialog(false);
     }
 
     private enableCallConnectedUI = () => {
@@ -209,7 +209,7 @@ export class ClientAppViewModel {
     private enableRingReceivedUI = (isOutgoingCall: boolean = false) => {
         this.isAgentBusy = true;
         this.isOutgoingCall(isOutgoingCall);
-        this.showAcceptOrRejectDialog(true);
+        this.showAcceptOrRejectDialog(false);   
     }
 }
 
