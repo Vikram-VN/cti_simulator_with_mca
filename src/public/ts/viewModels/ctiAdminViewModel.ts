@@ -102,6 +102,7 @@ export class CtiAdminViewModel {
         ivrDataArray.forEach((ele: { key: any; value: any; }) => {
             ivrDataObject[ele.key] = ele.value;
         });
+        console.log("ivrDataObject 105-->"+ivrDataObject);
         return ivrDataObject;
     }
 
